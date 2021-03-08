@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #ball{
+            width: 100px;
+            position: absolute;
+            left: 0px;
+            top: 150px;
+        }
+    </style>
+    <script>
+        var x = 0; //공의좌표
+        var step = 0; //증가할지 , 감소할지 결정할 변수
+        var flag = true;
+        function move(){
+            //문서내의 BALL 이라는 요소의  style중 left 값을 증가시키다가 
+            //500에 도달하면 감소시키고, 다시 0에 도달하면 증가시킨다.
+            step = (flag)? 10:-10;
+            x = x + step;
+            document.getElementById("ball").style.left=x+"px";
+            //개발자는 flag만 만지면, 공의 방향이 바뀔수 있다!
+            flag = (x>=500 || x<=0)? !flag:flag;
+        }
+    </script>
+</head>
+<body>
+    <button onclick="move()">움직이기</button>
+    <button>자동</button>
+    <h1>0</h1>
+    <img id="ball"  src="/day0308/among us.png">
+</body>
+</html>
