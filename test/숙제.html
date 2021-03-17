@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainbow Stopwatch</title>
+    <style>
+        body{
+            background-color: gray;
+        }
+        h1{
+            text-align: center;
+        }
+        #hour{
+            color:rgb(241, 49, 49); 
+        }
+        #min{
+            color:rgb(245, 176, 49); 
+        }
+        #sec{
+            color:rgb(248, 248, 54); 
+        }
+        #milisec{
+            color:rgb(66, 241, 66); 
+        }
+        #start{
+            background-color: rgb(62, 62, 241);
+            color: white;
+            border-radius: 4px;
+            
+        }
+        #reset{
+            background-color: rgb(243, 54, 243);
+            color:white;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+//전역변수
+var x; 
+var startstop = 0;
+
+ //1이면 start  2이면stop으로 바꾸고 0으로 초기화
+function startStop() {
+  startstop = startstop + 1;
+  if (startstop === 1) {
+    start();
+    document.getElementById("start").innerHTML = "Stop";
+  } else if (startstop === 2) {
+    document.getElementById("start").innerHTML = "Start";
+    startstop = 0;
+    stop();
+  }
+}
+
+/* Start */
+function start() {
+  x = setInterval(timer, 10);
+  // setInterval -> 타이머 기능
+  // setInterval을 이용해서 ms부터 시작 가능
+  //1초는 1000   0.01초이기 때문에 10으로 입력)
+} 
+
+ /* Stop  */
+function stop() {
+  clearInterval(x);
+  //clearInterval -> 타이머 stop기능
+} 
+
+//시간 단위 : hour min sec ms
+/*시간 값들을 초기화 */
+var milisec = 0;
+var sec = 0; 
+var min = 0;
+var hour = 0;
+
+
+var miliSecOut = 0;
+var secOut = 0;
+var minOut = 0;
+var hourOut = 0;
+/* 출력 변수 끝 */
+
+
+function timer() {
+    miliSecOut = checkTime(milisec);
+    secOut = checkTime(sec);
+    minOut = checkTime(min);
+    hourOut = checkTime(hour);
+
+    milisec = ++milisec;
+
+    // milisec가 100이되면 sec를 증가시킴
+    if (milisec === 100) {
+        milisec = 0;
+        sec = ++sec;
+    }
+    //sec가 60이 되면 min을 증가 시킴
+    if (sec == 60) {
+        min = ++min;
+        sec = 0;
+    }
+    //min 이 60이되면 hour을 증가 시킴
+    if (min == 60) {
+        min = 0;
+        hour = ++hour;
+
+    }
+
+    //innerHTML로 화면 렌더링
+    document.getElementById("milisec").innerHTML = miliSecOut;
+    document.getElementById("sec").innerHTML = secOut;
+    document.getElementById("min").innerHTML = minOut;
+    document.getElementById("hour").innerHTML = hourOut;
+
+}
+
+
+/* value가 10보다 작을 떄 0을 추가 */
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+
+
+  /*Reset 시간초기화*/
+function reset() {
+  milisec = 0;
+  sec = 0;
+  min = 0
+  hour = 0;
+
+  document.getElementById("milisec").innerHTML = "00";
+  document.getElementById("sec").innerHTML = "00";
+  document.getElementById("min").innerHTML = "00";
+  document.getElementById("hour").innerHTML = "00";
+}
+
+    </script>
+    <div id="main_description"></div>
+        <h1>
+            <span id="hour">00</span> :
+            <span id="min">00</span> :
+            <span id="sec">00</span> :
+            <span id="milisec">00</span>
+        </h1>
+          
+          <button onclick="startStop()" id="start">Start</button>
+          <button onclick="reset()" id="reset">Reset</button>
+</body>
+</html>
