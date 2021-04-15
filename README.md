@@ -1,1 +1,1 @@
-# Studying
+# This is ITKoreaAcademy Studying Files
